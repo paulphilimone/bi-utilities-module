@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace mz.betainteractive.utilities.BackgroundFeatures {
+namespace mz.betainteractive.utilities.module.BackgroundFeatures {
     public partial class LoadingWindow : Form {
         public LoadingWindow() {
             InitializeComponent();

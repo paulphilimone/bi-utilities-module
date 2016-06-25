@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace mz.betainteractive.utilities.BackgroundFeatures {
+namespace mz.betainteractive.utilities.module.BackgroundFeatures {
     public class OnExecuteDialog {
         public delegate void OnExecuteEventHandler();
         public delegate void OnPostExecuteEventHandler();

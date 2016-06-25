@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 //Originally - RuProgressBar
-namespace mz.betainteractive.utilities.BackgroundFeatures {
+namespace mz.betainteractive.utilities.module.BackgroundFeatures {
     /// <summary>
     /// This defines an interface which can be implemented by UI elements
     /// which indicate the progress of a long operation.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace mz.betainteractive.utilities.BackgroundFeatures {
+namespace mz.betainteractive.utilities.module.BackgroundFeatures {
     public class OnProgressiveExecuteDialog {
 
         public delegate void OnProgressiveExecuteEventHandler();

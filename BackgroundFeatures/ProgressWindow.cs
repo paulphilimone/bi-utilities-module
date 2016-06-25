@@ -4,7 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace mz.betainteractive.utilities.BackgroundFeatures {
+namespace mz.betainteractive.utilities.module.BackgroundFeatures {
     /// <summary>
     /// Summary description for ProgressWindow.
     /// </summary>

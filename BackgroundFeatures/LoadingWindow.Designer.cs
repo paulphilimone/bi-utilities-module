@@ -1,4 +1,4 @@
-﻿namespace mz.betainteractive.utilities.BackgroundFeatures {
+﻿namespace mz.betainteractive.utilities.module.BackgroundFeatures {
     partial class LoadingWindow {
         /// <summary>
         /// Required designer variable.
