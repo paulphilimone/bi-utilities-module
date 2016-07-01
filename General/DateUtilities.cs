@@ -276,6 +276,14 @@ namespace mz.betainteractive.utilities.module.General {
             return _halfs.ToList<DateBounds>();
         }
 
+
+        //statics
+        public static int GetMonthDays(DateTime date) {
+            CultureInfo ci = new CultureInfo("pt-PT");
+            Calendar calendar = ci.Calendar;
+            return calendar.GetDaysInMonth(date.Year, date.Month);
+        }
+
         //Internationalization
         public static String GetPeriodo(DateBounds bounds) {
             CultureInfo ci = new CultureInfo("pt-PT");
@@ -292,20 +300,86 @@ namespace mz.betainteractive.utilities.module.General {
 
             return dataInicial + " á " + dataFinal;
         }
+
+        public static DateBounds GetMonthDateBound(DateTime startDate) {
+            CultureInfo ci = new CultureInfo("pt-PT");
+
+            int days = DateUtilities.GetMonthDays(startDate);            
+            DateTime endDate = startDate.AddDays(days - 1);
+
+            int monthNumber = endDate.Month;
+            string monthName = endDate.ToString("MMMM", ci);
+
+            var dateBound = new DateBounds();
+            dateBound.SetDateBounds(monthNumber, endDate.Year, monthName, startDate, endDate);
+
+            return dateBound;
+        }
+
+        public static List<DateBounds> GetMonthsList(DateTime startDate, int nrYears) {
+            CultureInfo ci = new CultureInfo("pt-PT");
+            List<DateBounds> bounds = new List<DateBounds>();
+
+            int days = DateUtilities.GetMonthDays(startDate);
+            DateTime endDate = startDate.AddDays(days - 1);
+            int monthNumber = endDate.Month;
+            string monthName = "";
+
+            if (monthNumber > 1) {  //> Jan                
+                while (monthNumber-- > 1) {
+                    endDate = startDate.AddDays(-1);
+                    days = DateUtilities.GetMonthDays(endDate.AddDays(-1 * (DateUtilities.GetMonthDays(endDate))));
+                    startDate = endDate.AddDays(-1 * days + 1);
+                    //Console.WriteLine("in: "+inDate+", en: "+ltDate + ", mth: "+monthNumber);                    
+                }
+            }
+
+            do {
+                while (monthNumber < 12) {
+                    days = DateUtilities.GetMonthDays(startDate);
+                    endDate = startDate.AddDays(days - 1);
+
+                    monthNumber = endDate.Month;
+                    monthName = StringUtilities.Capitalize(endDate.ToString("MMMM", ci));
+
+                    var dateBound = new DateBounds();
+                    dateBound.SetDateBounds(monthNumber, endDate.Year, monthName, startDate, endDate);
+
+                    bounds.Add(dateBound);
+
+                    startDate = endDate.AddDays(1);
+                }
+                monthNumber = 0;
+            } while (--nrYears > 0);
+
+
+            return bounds;
+        }
     }
     
     public class DateBounds {            
         public int Order { get; set; }
-        
+        public int Year { get; set; }
+        private string _name;
         private DateTime _first;
         private DateTime _last;
 
+        public string Name { get { return _name; } }
         public DateTime First { get { return _first; } }
         public DateTime Last { get { return _last; } }
+        public int Days { get { return (int) (_last - _first).TotalDays+1; } }
 
         public void SetDateBounds(System.DateTime first, System.DateTime last) {
             this._first = new DateTime(first.Year, first.Month, first.Day);
             this._last = new DateTime(last.Year, last.Month, last.Day, 23, 59, 59);
+        }
+
+        public void SetDateBounds(int order, int year, string name, System.DateTime first, System.DateTime last) {
+            this._first = new DateTime(first.Year, first.Month, first.Day);
+            this._last = new DateTime(last.Year, last.Month, last.Day, 23, 59, 59);
+            this._name = name;
+            this.Order = order;
+            this.Year = year;
         }
 
         public void SetFirstDate(System.DateTime first) {
@@ -314,6 +388,10 @@ namespace mz.betainteractive.utilities.module.General {
 
         public void SetLastDate(System.DateTime last) {            
             this._last = new DateTime(last.Year, last.Month, last.Day, 23, 59, 59);
+        }
+
+        public void SetName(string name) { 
+            this._name = name;
         }
         
         public bool Contains(DateTime date) {

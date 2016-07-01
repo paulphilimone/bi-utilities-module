@@ -77,5 +77,9 @@ namespace mz.betainteractive.utilities.module.General {
                 return false;
             }
         }
+
+        public static string Capitalize(string text) {
+            return Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(text);
+        }
     }
 }
