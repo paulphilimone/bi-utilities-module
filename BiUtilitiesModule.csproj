@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,13 +34,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundFeatures\IProgressCallback.cs" />
@@ -56,6 +56,22 @@
     </Compile>
     <Compile Include="BackgroundFeatures\SampleRunProgress.cs" />
     <Compile Include="Collections\GenericComponents.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <None Include="Controls\XPExplorerBar\AssemblyInfo.cs.bak" />
+    <Compile Include="Controls\XPExplorerBar\Expando.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\XPExplorerBar\ExplorerBarInfo.cs" />
+    <Compile Include="Controls\XPExplorerBar\NativeMethods.cs" />
+    <Compile Include="Controls\XPExplorerBar\TaskItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\XPExplorerBar\TaskPane.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\XPExplorerBar\ThemeManager.cs" />
+    <Compile Include="Controls\XPExplorerBar\XPControls.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,12 +99,23 @@
     <EmbeddedResource Include="BackgroundFeatures\ProgressWindow.resx">
       <DependentUpon>ProgressWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XPExplorerBar\Expando.resx">
+      <DependentUpon>Expando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XPExplorerBar\ExpandoArrows.resX" />
+    <EmbeddedResource Include="Controls\XPExplorerBar\TaskItem.resx">
+      <DependentUpon>TaskItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\XPExplorerBar\TaskPane.resx">
+      <DependentUpon>TaskPane.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Controls\XPExplorerBar\XPExplorerBar.snk" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
