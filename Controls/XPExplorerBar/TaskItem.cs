@@ -29,6 +29,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.Runtime.Serialization;
@@ -119,6 +120,11 @@ namespace XPExplorerBar
 		/// </summary>
 		private DrawTextFlags drawTextFlags;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        private bool selected;
+
 		#endregion	
 		
 		
@@ -169,6 +175,33 @@ namespace XPExplorerBar
 
 
 		#region Properties
+
+        /// <summary>
+        /// Gets or sets the text associated with this TaskItem
+        /// </summary>
+        public bool Selected {
+            get {
+                return this.selected;
+            }
+
+            set {
+                this.selected = value;
+               
+                // if selected true unselect the rest of taskItems
+                if (value) {
+
+                    if (this.Expando != null) {
+                        this.Expando.UnSelectAllTaskItems(this);
+                    }
+                }
+
+                if (this.Expando != null) {
+                    this.Expando.DoLayout();
+                }
+
+                this.Invalidate();
+            }
+        }
 
 		#region Colors
 
@@ -865,6 +898,7 @@ namespace XPExplorerBar
 		}
 
 
+
 		/// <summary>
 		/// Gets or sets whether the TaskItem's text should be drawn 
 		/// and measured using GDI instead of GDI+
@@ -1114,6 +1148,8 @@ namespace XPExplorerBar
 			base.OnMouseEnter(e);
 
 			this.FocusState = FocusStates.Mouse;
+
+            this.Refresh();
 		}
 
 
@@ -1126,7 +1162,21 @@ namespace XPExplorerBar
 			base.OnMouseLeave(e);
 
 			this.FocusState = FocusStates.None;
+
+            this.Refresh();
 		}
+
+        /// <summary>
+        /// Raises the MouseClick event
+        /// </summary>
+        /// <param name="e">An EventArgs that contains the event data</param>
+        protected override void OnMouseClick(MouseEventArgs e) {
+            base.OnMouseClick(e);
+
+            if (e.Button == MouseButtons.Left) {
+                this.Selected = true;
+            }
+        }
 
 		#endregion
 
@@ -1157,15 +1207,16 @@ namespace XPExplorerBar
 			// do we have an image to draw
 			if (this.Image != null)
 			{
+			    int ypos = (this.Height-this.Image.Height)/2;
 				if (this.Enabled)
 				{
 					if (this.RightToLeft == RightToLeft.Yes)
 					{
-						e.Graphics.DrawImage(this.Image, this.Width-16, 0, 16, 16);
+						e.Graphics.DrawImage(this.Image, this.Width-16, ypos, 16, 16);
 					}
 					else
 					{
-						e.Graphics.DrawImage(this.Image, 0, 0, 16, 16);
+						e.Graphics.DrawImage(this.Image, 0, ypos, 16, 16);
 					}
 				}
 				else
@@ -1178,11 +1229,11 @@ namespace XPExplorerBar
 
 					if (this.RightToLeft == RightToLeft.Yes)
 					{
-						ControlPaint.DrawImageDisabled(e.Graphics, this.Image, this.Width-16, 0, this.BackColor);
+						ControlPaint.DrawImageDisabled(e.Graphics, this.Image, this.Width-16, ypos, this.BackColor);
 					}
 					else
 					{
-						ControlPaint.DrawImageDisabled(e.Graphics, this.Image, 0, 0, this.BackColor);
+                        ControlPaint.DrawImageDisabled(e.Graphics, this.Image, 0, ypos, this.BackColor);
 					}
 				}
 			}
@@ -1209,12 +1260,14 @@ namespace XPExplorerBar
 					{
 						if (this.Image != null)
 						{
-							this.textRect.X = 16 + this.Padding.Left;
+							this.textRect.X = 12 + this.Padding.Left;
 						}
 					
 						this.textRect.Width = this.Width - this.textRect.X - this.Padding.Right;
 					}
 				}
+
+                this.textRect.Y = ((this.Height - this.textRect.Height) / 2) + 1;
 				
 				if (this.RightToLeft == RightToLeft.Yes)
 				{
@@ -1246,7 +1299,62 @@ namespace XPExplorerBar
 					ControlPaint.DrawFocusRectangle(e.Graphics, this.ClientRectangle);
 				}
 			}
-		}
+
+            //paint background if taskItem is clicked
+            if (this.Selected) {
+                var g = e.Graphics;
+                Color color = Color.MediumSlateBlue;
+                Brush brush = new SolidBrush(Color.FromArgb(50, color.R, color.G, color.B));
+                g.FillPath(brush, CreateRoundedRect(1, 1, this.Width - 2, this.Height - 2, 2));
+                g.DrawPath(Pens.MediumTurquoise, CreateRoundedRect(0, 0, this.Width - 1, this.Height - 1, 2));
+            }
+
+            //paint background if mouse is hover
+            if (focusState == FocusStates.Mouse /* && Collapsed && !this.Animating*/) {
+                var g = e.Graphics;
+                Color color = Color.MediumSlateBlue;
+                Brush brush = new SolidBrush(Color.FromArgb(20, color.R, color.G, color.B));
+                g.FillPath(brush, CreateRoundedRect(1, 1, this.Width - 2, this.Height - 2, 2));
+                g.DrawPath(Pens.MediumTurquoise, CreateRoundedRect(0, 0, this.Width - 1, this.Height - 1, 2));
+            }
+
+
+        }
+
+        public GraphicsPath CreateRoundedRect(int x, int y, int width, int height, int radius) {
+            Rectangle rect = new Rectangle(x, y, width, height);
+            return CreateRoundedRect(rect, radius);
+        }
+
+        public GraphicsPath CreateRoundedRect(Rectangle bounds, int radius) {
+            int diameter = radius * 2;
+            Size size = new Size(diameter, diameter);
+            Rectangle arc = new Rectangle(bounds.Location, size);
+            GraphicsPath path = new GraphicsPath();
+
+            if (radius == 0) {
+                path.AddRectangle(bounds);
+                return path;
+            }
+
+            // top left arc  
+            path.AddArc(arc, 180, 90);
+
+            // top right arc  
+            arc.X = bounds.Right - diameter;
+            path.AddArc(arc, 270, 90);
+
+            // bottom right arc  
+            arc.Y = bounds.Bottom - diameter;
+            path.AddArc(arc, 0, 90);
+
+            // bottom left arc 
+            arc.X = bounds.Left;
+            path.AddArc(arc, 90, 90);
+
+            path.CloseFigure();
+            return path;
+        }
 
 
 		/// <summary>

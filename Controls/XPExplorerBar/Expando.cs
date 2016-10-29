@@ -5733,7 +5733,26 @@ namespace XPExplorerBar
 		}
 
 		#endregion
-	}
+
+        internal void UnSelectAllTaskItems(TaskItem taskItem) {
+            foreach (var item in this.Items) {
+                if (item is TaskItem) {
+                    TaskItem tk = (item as TaskItem);
+                    if (taskItem != null) {
+                        if (!taskItem.Equals(tk)) {
+                            tk.Selected = false;
+                        }
+                    } else {
+                        tk.Selected = false;
+                    }
+                }
+            }
+            
+            if (this.taskpane != null && taskItem != null) {
+                this.taskpane.UnSelectAllTaskItems(taskItem.Expando, null);
+            }
+        }
+    }
 
 	#endregion
 

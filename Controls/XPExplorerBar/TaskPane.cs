@@ -27,11 +27,13 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using System.Windows.Forms;
@@ -1739,6 +1741,12 @@ namespace XPExplorerBar
 				}
 			}
 
+		    public List<Expando> GetList() {
+                List<Expando> list = new List<Expando>();
+                list.AddRange(this.List.OfType<Expando>());
+		        return list;
+		    }
+
 			#endregion
 		}
 
@@ -2160,7 +2168,17 @@ namespace XPExplorerBar
 		}
 
 		#endregion
-	}
+
+        internal void UnSelectAllTaskItems(Expando expando, TaskItem taskItem) {
+            List<Expando> expandoList = new List<Expando>();
+            expandoList.AddRange(Expandos.OfType<Expando>());
+            expandoList.Remove(expando);
+
+            foreach (Expando exp in expandoList) {
+                exp.UnSelectAllTaskItems(taskItem);
+            }
+        }
+    }
 
 	#endregion
 
