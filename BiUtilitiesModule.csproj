@@ -1,142 +1,41 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{FF298101-31A2-430C-94FB-1310B4A0566B}</ProjectGuid>
+    <TargetFramework>net48</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>mz.betainteractive.utilities.module</RootNamespace>
-    <AssemblyName>BiUtilitiesModule</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundFeatures\IProgressCallback.cs" />
-    <Compile Include="BackgroundFeatures\LoadingWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BackgroundFeatures\LoadingWindow.Designer.cs">
-      <DependentUpon>LoadingWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BackgroundFeatures\OnExecuteDialog.cs" />
-    <Compile Include="BackgroundFeatures\OnProgressiveExecuteDialog.cs" />
-    <Compile Include="BackgroundFeatures\ProgressWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BackgroundFeatures\SampleRunProgress.cs" />
-    <Compile Include="Collections\GenericComponents.cs">
+    <Compile Update="Collections\GenericComponents.cs">
       <SubType>Component</SubType>
     </Compile>
-    <None Include="Controls\XPExplorerBar\AssemblyInfo.cs.bak" />
-    <Compile Include="Controls\XPExplorerBar\Expando.cs">
+    <Compile Update="Controls\XPExplorerBar\Expando.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\XPExplorerBar\ExplorerBarInfo.cs" />
-    <Compile Include="Controls\XPExplorerBar\NativeMethods.cs" />
-    <Compile Include="Controls\XPExplorerBar\TaskItem.cs">
+    <Compile Update="Controls\XPExplorerBar\TaskItem.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\XPExplorerBar\TaskPane.cs">
+    <Compile Update="Controls\XPExplorerBar\TaskPane.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\XPExplorerBar\ThemeManager.cs" />
-    <Compile Include="Controls\XPExplorerBar\XPControls.cs">
+    <Compile Update="Controls\XPExplorerBar\XPControls.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="IO\BetaEncryptation.cs" />
-    <Compile Include="Components\Components.cs" />
-    <Compile Include="IO\CSVReader.cs" />
-    <Compile Include="General\DateUtilities.cs" />
-    <Compile Include="General\LogErrors.cs" />
-    <Compile Include="General\StringUtilities.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="BackgroundFeatures\LoadingWindow.resx">
-      <DependentUpon>LoadingWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BackgroundFeatures\ProgressWindow.resx">
-      <DependentUpon>ProgressWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\XPExplorerBar\Expando.resx">
-      <DependentUpon>Expando.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\XPExplorerBar\ExpandoArrows.resX" />
-    <EmbeddedResource Include="Controls\XPExplorerBar\TaskItem.resx">
-      <DependentUpon>TaskItem.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\XPExplorerBar\TaskPane.resx">
-      <DependentUpon>TaskPane.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Controls\XPExplorerBar\XPExplorerBar.snk" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\connecting.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\connecting.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <ItemGroup>
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="BackgroundFeatures\Copy of ProgressWindow.cs" />
+    <EmbeddedResource Remove="BackgroundFeatures\Copy of ProgressWindow.resx" />
+  </ItemGroup>
 </Project>
