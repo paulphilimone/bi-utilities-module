@@ -15,18 +15,6 @@
     <Compile Update="Collections\GenericComponents.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controls\XPExplorerBar\Expando.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\XPExplorerBar\TaskItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\XPExplorerBar\TaskPane.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\XPExplorerBar\XPControls.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
