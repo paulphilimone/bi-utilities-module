@@ -278,6 +278,11 @@ namespace mz.betainteractive.utilities.module.General {
 
 
         //statics
+        public static string ToString(DateTime date, string format) {
+            CultureInfo ci = new CultureInfo("pt-PT");
+            return date.ToString(format, ci);
+        }
+
         public static int GetMonthDays(DateTime date) {
             CultureInfo ci = new CultureInfo("pt-PT");
             Calendar calendar = ci.Calendar;
