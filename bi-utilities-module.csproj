@@ -21,9 +21,5 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="BackgroundFeatures\Copy of ProgressWindow.cs" />
-    <EmbeddedResource Remove="BackgroundFeatures\Copy of ProgressWindow.resx" />
-  </ItemGroup>
+  </ItemGroup>  
 </Project>
