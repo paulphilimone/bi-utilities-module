@@ -89,7 +89,7 @@ namespace mz.betainteractive.utilities.module.General {
                 return input;
 
             input = Regex.Replace(input, @"[^\p{L}]", string.Empty);
-
+            
             var normalized = input.Normalize(NormalizationForm.FormD);
             var sb = new StringBuilder();
 
@@ -100,7 +100,9 @@ namespace mz.betainteractive.utilities.module.General {
                 }
             }
 
-            return sb.ToString().Normalize(NormalizationForm.FormC);
+            string baseText = sb.ToString().Normalize(NormalizationForm.FormC);
+
+            return Regex.Replace(baseText, @"[^a-zA-Z\s0-9]", string.Empty);
         }
 
         public static string GetEnumDescription(Enum value) {
