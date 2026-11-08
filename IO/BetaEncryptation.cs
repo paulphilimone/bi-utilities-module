@@ -374,15 +374,17 @@ namespace mz.betainteractive.encoding.encryptation {
 
     [Serializable]
     public class BTSKey {
-        public string Company;
-        public string EncryptedKey;
-        public string ProductKey;
-        public bool Used;
+        public string Company { get; set; }
+        public string EncryptedKey { get; set; }
+        public string ProductKey { get; set; }
+        public bool Used { get; set; }
 
-        public BTSKey(string company, string encrypted, string key) {
+        public BTSKey() { }
+
+        public BTSKey(string company, string encryptedKey, string productKey) {
             this.Company = company;
-            this.EncryptedKey = encrypted;
-            this.ProductKey = key;
+            this.EncryptedKey = encryptedKey;
+            this.ProductKey = productKey;
             this.Used = false;
         }
     }
